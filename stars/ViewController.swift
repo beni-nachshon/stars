@@ -9,37 +9,44 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    enum starStatus {
-        case full
-        case empty
-    }
+   var numOfFullStars : Int = -1
     
-    var allStarsStatus : [Int:starStatus] = [:]
+  
  
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        for star in stars {
-            allStarsStatus = [star.tag: starStatus.empty]
-        }
+      
     }
    
     @IBOutlet var stars: [UIButton]!
     
     @IBAction func changeStarStatus(_ sender: UIButton) {
-       
-        if allStarsStatus[sender.tag] == .empty {
-            sender.setImage(UIImage(systemName:  "star.fill"), for: UIControl.State.normal)
-            allStarsStatus[sender.tag] = .full        }
-        else{
-            sender.setImage(UIImage(systemName:  "star"), for: UIControl.State.normal)
-            allStarsStatus[sender.tag] = .empty        }
         
+            for star in 0...sender.tag {
+                stars[star].setImage(UIImage(systemName:  "star.fill"), for: UIControl.State.normal)
+                      }
+        for star in sender.tag...stars.count - 1 {
+               stars [star].setImage(UIImage(systemName:  "star"), for: UIControl.State.normal)
+            }
+        if sender.tag != numOfFullStars {
+            stars[sender.tag].setImage(UIImage(systemName:  "star.fill"), for: UIControl.State.normal)
+            numOfFullStars = sender.tag
+        }
+        else{
+            numOfFullStars = sender.tag - 1        }
+        
+            
+            
+      
+          
+               }
         
         
        
         
         
     }
-}
+    
+
 
